@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <!-- <script type="text/javascript" src="https://raw.githubusercontent.com/ConsenSys/eth-lightwallet/master/dist/lightwallet.min.js"></script> -->
+    <script type="text/javascript" src="https://raw.githubusercontent.com/ethereumjs/keythereum/master/dist/keythereum.min.js"></script>
+    <script type="text/javascript" src="./require.js"></script>
+    <script type="text/javascript">
+    window.onload = function() {
+
+        setTimeout(function() {
+            generateWalletFile();
+
+        }, 1000);
+
+        function generateWalletFile(argument) {
+            var w = window;
+
+            var keythereum = require("keythereum");
+            alert(keythereum);
+            // var tmp = window.keythereum;
+            // alert(tmp)
+            // var keythereum = require("keythereum");
+            // alert(keythereum);
+
+            // var params = {
+            //     keyBytes: 32,
+            //     ivBytes: 16
+            // };
+
+            // // synchronous
+            // var dk = keythereum.create(params);
+
+
+
+            // {
+            //     privateKey: new Buffer("7a28b5ba57c53603b0b07b56bba752f7784bf506fa95edc395f5cf6c7514fe9d", "hex")
+            //         // iv:new Buffer("5318b4d5bcd28de64ee5559e671353e16f075ecae9f99c7a79a38af5f869aa46","hex"),
+            //         // key:new Buffer("f06d69cdc7da0faffb1008270bca38f5", "hex"),
+            //         // salt:new Buffer("6087dab2f9fdbbfaddc31a909735c1e6","hex")
+            // }
+
+            // // // asynchronous
+            // // keythereum.create(params, function(dk) {
+            // //     // do stuff!
+            // // });
+
+            // var options = {
+            //     kdf: "pbkdf2",
+            //     cipher: "aes-128-ctr",
+            //     kdfparams: {
+            //         c: 262144,
+            //         dklen: 32,
+            //         prf: "hmac-sha256"
+            //     }
+            // };
+
+            // // synchronous
+            // var keyObject = keythereum.dump("1111", dk.privateKey, dk.salt, dk.iv, options);
+            // alert(keyObject);
+        }
+
+
+
+
+    }
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>

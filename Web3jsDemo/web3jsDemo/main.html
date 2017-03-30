@@ -1,0 +1,2688 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- <script type="text/javascript" src="https://rawgit.com/ethereumjs/browser-builds/master/dist/ethereumjs-all.js"></script>
+<script type="text/javascript" src="https://wzrd.in/standalone/buffer"></script>
+<script type="text/javascript" src="https://raw.githubusercontent.com/ethereumjs/keythereum/master/dist/keythereum.min.js"></script>
+ -->
+<!-- <script type="text/javascript" src="https://rawgit.com/ConsenSys/eth-lightwallet/master/dist/lightwallet.min.js"></script> -->
+<!-- <script type="text/javascript" src="http://rawgit.com/ethereum/web3.js/0.16.0/dist/web3.min.js"></script> -->
+<script type="text/javascript" src="./js/ethereumjs-all.js"></script>
+<script type="text/javascript" src="./js/wzrdin.js"></script>
+<script type="text/javascript" src="./js/keythereum.min.js"></script>
+<script type="text/javascript" src="./js/lightwallet.min.js"></script>
+<script type="text/javascript" src="./js/web3js0.16.0.js"></script>
+<!-- <script type="text/javascript" src="./js/require.js"></script> -->
+<script type="text/javascript" src="./js/ethers-wallet.min.js"></script>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Ethereum Account Explorer built on INFURA</title>
+    <script>
+    var provideAddr = "http://192.168.10.127:6789";
+    // provideAddr = "http://10.10.8.232:6789"
+    var lazyKey;
+    var Buffer = window.buffer.Buffer;
+
+    function loadScript(url, func) {
+
+
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = url;
+        document.body.appendChild(script);
+
+
+        // var head = document.head || document.getElementByTagName('head')[0];
+        // var script = document.createElement('script');
+        // script.src = url;
+        // script.onload = script.onreadystatechange = function() {
+        //     if (!this.readyState || this.readyState == 'loaded' || this.readyState == 'complete') {
+        //         func();
+        //         script.onload = script.onreadystatechange = null;
+        //     }
+        // };
+        // head.insertBefore(script, 0);
+    }
+
+
+
+    function addRow(name, value) {
+        // <!--http://www.codefans.net/jscss/code/4632.shtml-->
+        var oTable = document.getElementById("oTable");
+        var tBodies = oTable.tBodies;
+        var tbody = tBodies[0];
+        var tr = tbody.insertRow(tbody.rows.length);
+        var td_1 = tr.insertCell(0);
+        td_1.innerHTML = name
+        var td_2 = tr.insertCell(1);
+        td_2.innerHTML = value
+    }
+
+    function addElement(text) {
+        var elemDiv = document.createElement('div');
+        elemDiv.style.cssText = 'width:100%;height:10%;background:rgb(192,192,192);';
+        elemDiv.innerHTML = text;
+        window.document.body.insertBefore(elemDiv, window.document.body.firstChild);
+        // document.body.appendChild(elemDiv); // appends last of that element
+    }
+
+
+
+
+
+
+    function callContract() {
+
+        var abi = [{
+            "constant": false,
+            "inputs": [{
+                "name": "a",
+                "type": "uint256"
+            }],
+            "name": "multiply",
+            "outputs": [{
+                "name": "d",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }];
+
+        var registerABI = [{
+            "constant": true,
+            "inputs": [{
+                "name": "_contractAddr",
+                "type": "address"
+            }],
+            "name": "IfContractRegist",
+            "outputs": [{
+                "name": "",
+                "type": "bool"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": false,
+            "inputs": [],
+            "name": "unRegister",
+            "outputs": [],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": false,
+            "inputs": [{
+                "name": "_name",
+                "type": "string"
+            }, {
+                "name": "_version",
+                "type": "string"
+            }],
+            "name": "register",
+            "outputs": [],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_addr",
+                "type": "address"
+            }],
+            "name": "findResNameByAddress",
+            "outputs": [{
+                "name": "_contractName",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_pageNum",
+                "type": "uint256"
+            }, {
+                "name": "_pageSize",
+                "type": "uint256"
+            }],
+            "name": "getRegisteredContract",
+            "outputs": [{
+                "name": "_json",
+                "type": "string"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_name",
+                "type": "string"
+            }, {
+                "name": "_version",
+                "type": "string"
+            }],
+            "name": "getContractAddress",
+            "outputs": [{
+                "name": "_address",
+                "type": "address"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "inputs": [],
+            "payable": false,
+            "type": "constructor"
+        }];
+
+        var MetaCoinABI = [{
+            "constant": false,
+            "inputs": [{
+                "name": "addr",
+                "type": "address"
+            }],
+            "name": "getBalanceInEth",
+            "outputs": [{
+                "name": "",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": false,
+            "inputs": [{
+                "name": "receiver",
+                "type": "address"
+            }, {
+                "name": "amount",
+                "type": "uint256"
+            }],
+            "name": "sendCoin",
+            "outputs": [{
+                "name": "sufficient",
+                "type": "bool"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": false,
+            "inputs": [{
+                "name": "addr",
+                "type": "address"
+            }],
+            "name": "getBalance",
+            "outputs": [{
+                "name": "",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "inputs": [],
+            "payable": false,
+            "type": "constructor"
+        }, {
+            "anonymous": false,
+            "inputs": [{
+                "indexed": true,
+                "name": "_from",
+                "type": "address"
+            }, {
+                "indexed": true,
+                "name": "_to",
+                "type": "address"
+            }, {
+                "indexed": false,
+                "name": "_value",
+                "type": "uint256"
+            }],
+            "name": "Transfer",
+            "type": "event"
+        }];
+
+
+        var ActionManagerABI = [{
+            "constant": true,
+            "inputs": [{
+                "name": "_userAddr",
+                "type": "address"
+            }],
+            "name": "userExists",
+            "outputs": [{
+                "name": "_ret",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [],
+            "name": "getErrno",
+            "outputs": [{
+                "name": "",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": false,
+            "inputs": [{
+                "name": "_actionId",
+                "type": "string"
+            }],
+            "name": "deleteById",
+            "outputs": [],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_actionId",
+                "type": "string"
+            }],
+            "name": "actionUsed",
+            "outputs": [{
+                "name": "_used",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": false,
+            "inputs": [{
+                "name": "_str",
+                "type": "string"
+            }, {
+                "name": "_addr",
+                "type": "address"
+            }],
+            "name": "log",
+            "outputs": [],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": false,
+            "inputs": [{
+                "name": "_str",
+                "type": "string"
+            }, {
+                "name": "_i",
+                "type": "int256"
+            }],
+            "name": "log",
+            "outputs": [],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": false,
+            "inputs": [{
+                "name": "_name",
+                "type": "string"
+            }, {
+                "name": "_version",
+                "type": "string"
+            }],
+            "name": "register",
+            "outputs": [],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": false,
+            "inputs": [{
+                "name": "_str",
+                "type": "string"
+            }],
+            "name": "log",
+            "outputs": [],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": false,
+            "inputs": [],
+            "name": "kill",
+            "outputs": [],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_addr",
+                "type": "address"
+            }, {
+                "name": "_departmentId",
+                "type": "string"
+            }],
+            "name": "checkWritePermission",
+            "outputs": [{
+                "name": "_ret",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": false,
+            "inputs": [{
+                "name": "_str",
+                "type": "string"
+            }, {
+                "name": "_str2",
+                "type": "string"
+            }],
+            "name": "log",
+            "outputs": [],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_actionId",
+                "type": "string"
+            }],
+            "name": "findById",
+            "outputs": [{
+                "name": "_actionJson",
+                "type": "string"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_roleId",
+                "type": "string"
+            }, {
+                "name": "_actionId",
+                "type": "string"
+            }],
+            "name": "checkRoleAction",
+            "outputs": [{
+                "name": "_ret",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_contractName",
+                "type": "string"
+            }],
+            "name": "listContractActions",
+            "outputs": [{
+                "name": "_actionListJson",
+                "type": "string"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": false,
+            "inputs": [],
+            "name": "clearLog",
+            "outputs": [],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [],
+            "name": "getSender",
+            "outputs": [{
+                "name": "_ret",
+                "type": "string"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": false,
+            "inputs": [{
+                "name": "_userAddr",
+                "type": "address"
+            }],
+            "name": "eraseAdminByAddress",
+            "outputs": [],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_departmentId",
+                "type": "string"
+            }, {
+                "name": "_index",
+                "type": "uint256"
+            }],
+            "name": "getChildIdByIndex",
+            "outputs": [{
+                "name": "_childDepartmentId",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_departmentId",
+                "type": "string"
+            }, {
+                "name": "_actionId",
+                "type": "string"
+            }],
+            "name": "checkDepartmentAction",
+            "outputs": [{
+                "name": "_ret",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_departmentId",
+                "type": "string"
+            }],
+            "name": "departmentExists",
+            "outputs": [{
+                "name": "_exists",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [],
+            "name": "listAll",
+            "outputs": [{
+                "name": "_actionListJson",
+                "type": "string"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_userAddr",
+                "type": "address"
+            }, {
+                "name": "index",
+                "type": "uint256"
+            }],
+            "name": "getUserRoleId",
+            "outputs": [{
+                "name": "_ret",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_departmentId",
+                "type": "string"
+            }],
+            "name": "getUserCountByDepartmentId",
+            "outputs": [{
+                "name": "_count",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [],
+            "name": "getOwner",
+            "outputs": [{
+                "name": "_ret",
+                "type": "string"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_actionId",
+                "type": "string"
+            }],
+            "name": "checkActionExists",
+            "outputs": [{
+                "name": "_ret",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_departmentId",
+                "type": "string"
+            }, {
+                "name": "index",
+                "type": "uint256"
+            }],
+            "name": "getDepartmentRoleId",
+            "outputs": [{
+                "name": "_ret",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [],
+            "name": "getLog",
+            "outputs": [{
+                "name": "_ret",
+                "type": "string"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [],
+            "name": "getCount",
+            "outputs": [{
+                "name": "_count",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_roleId",
+                "type": "string"
+            }],
+            "name": "roleUsed",
+            "outputs": [{
+                "name": "_used",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_actionId",
+                "type": "string"
+            }],
+            "name": "actionExists",
+            "outputs": [{
+                "name": "_ret",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_userAddr",
+                "type": "address"
+            }],
+            "name": "getUserDepartmentId",
+            "outputs": [{
+                "name": "_departId",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_userAddr",
+                "type": "address"
+            }, {
+                "name": "_actionId",
+                "type": "string"
+            }],
+            "name": "checkUserAction",
+            "outputs": [{
+                "name": "_ret",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": false,
+            "inputs": [{
+                "name": "_actionJson",
+                "type": "string"
+            }],
+            "name": "insert",
+            "outputs": [{
+                "name": "_ret",
+                "type": "bool"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": false,
+            "inputs": [{
+                "name": "_str",
+                "type": "string"
+            }, {
+                "name": "_ui",
+                "type": "uint256"
+            }],
+            "name": "log",
+            "outputs": [],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_departmentId",
+                "type": "string"
+            }, {
+                "name": "_roleId",
+                "type": "string"
+            }],
+            "name": "checkDepartmentRole",
+            "outputs": [{
+                "name": "_ret",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_resKey",
+                "type": "string"
+            }, {
+                "name": "_opKey",
+                "type": "string"
+            }],
+            "name": "findByKey",
+            "outputs": [{
+                "name": "_actionJson",
+                "type": "string"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_roleId",
+                "type": "string"
+            }],
+            "name": "roleExists",
+            "outputs": [{
+                "name": "_ret",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_userAddr",
+                "type": "address"
+            }, {
+                "name": "_contractAddr",
+                "type": "address"
+            }, {
+                "name": "_funcSha3",
+                "type": "string"
+            }],
+            "name": "checkUserPrivilege",
+            "outputs": [{
+                "name": "_ret",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_departmentId",
+                "type": "string"
+            }],
+            "name": "getAdmin",
+            "outputs": [{
+                "name": "_admin",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_actionId",
+                "type": "string"
+            }, {
+                "name": "_index",
+                "type": "uint256"
+            }],
+            "name": "getRoleIdByActionIdAndIndex",
+            "outputs": [{
+                "name": "_roleId",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_actionId",
+                "type": "string"
+            }, {
+                "name": "_contractAddr",
+                "type": "address"
+            }, {
+                "name": "_opSha3Key",
+                "type": "string"
+            }],
+            "name": "checkActionWithKey",
+            "outputs": [{
+                "name": "_ret",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "inputs": [],
+            "payable": false,
+            "type": "constructor"
+        }, {
+            "anonymous": false,
+            "inputs": [{
+                "indexed": false,
+                "name": "_errno",
+                "type": "uint256"
+            }, {
+                "indexed": false,
+                "name": "_info",
+                "type": "string"
+            }],
+            "name": "Notify",
+            "type": "event"
+        }];
+
+
+        var UserManagerABI = [{
+            "constant": true,
+            "inputs": [{
+                "name": "_account",
+                "type": "string"
+            }],
+            "name": "getAccountState",
+            "outputs": [{
+                "name": "_state",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_departmentId",
+                "type": "string"
+            }, {
+                "name": "_pageNum",
+                "type": "uint256"
+            }, {
+                "name": "_pageSize",
+                "type": "uint256"
+            }],
+            "name": "findByDepartmentIdTree",
+            "outputs": [{
+                "name": "_strjson",
+                "type": "string"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_mobile",
+                "type": "string"
+            }],
+            "name": "findByMobile",
+            "outputs": [{
+                "name": "_strjson",
+                "type": "string"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_userAddr",
+                "type": "address"
+            }],
+            "name": "userExists",
+            "outputs": [{
+                "name": "_ret",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [],
+            "name": "getRevision",
+            "outputs": [{
+                "name": "_revision",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [],
+            "name": "getErrno",
+            "outputs": [{
+                "name": "",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_userAddr",
+                "type": "address"
+            }, {
+                "name": "_roleId",
+                "type": "string"
+            }],
+            "name": "checkUserRole",
+            "outputs": [{
+                "name": "_ret",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": false,
+            "inputs": [{
+                "name": "_userAddr",
+                "type": "address"
+            }, {
+                "name": "_status",
+                "type": "uint256"
+            }],
+            "name": "updatePasswordStatus",
+            "outputs": [{
+                "name": "_ret",
+                "type": "bool"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_actionId",
+                "type": "string"
+            }],
+            "name": "actionUsed",
+            "outputs": [{
+                "name": "_used",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": false,
+            "inputs": [{
+                "name": "_str",
+                "type": "string"
+            }, {
+                "name": "_addr",
+                "type": "address"
+            }],
+            "name": "log",
+            "outputs": [],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": false,
+            "inputs": [{
+                "name": "_account",
+                "type": "string"
+            }],
+            "name": "login",
+            "outputs": [{
+                "name": "_json",
+                "type": "string"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": false,
+            "inputs": [{
+                "name": "_str",
+                "type": "string"
+            }, {
+                "name": "_i",
+                "type": "int256"
+            }],
+            "name": "log",
+            "outputs": [],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_accountStatus",
+                "type": "uint256"
+            }, {
+                "name": "_pageNo",
+                "type": "uint256"
+            }, {
+                "name": "_pageSize",
+                "type": "uint256"
+            }],
+            "name": "pageByAccountStatus",
+            "outputs": [{
+                "name": "_strjson",
+                "type": "string"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": false,
+            "inputs": [{
+                "name": "_userJson",
+                "type": "string"
+            }],
+            "name": "update",
+            "outputs": [{
+                "name": "_ret",
+                "type": "bool"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": false,
+            "inputs": [{
+                "name": "_name",
+                "type": "string"
+            }, {
+                "name": "_version",
+                "type": "string"
+            }],
+            "name": "register",
+            "outputs": [],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": false,
+            "inputs": [{
+                "name": "_str",
+                "type": "string"
+            }],
+            "name": "log",
+            "outputs": [],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_userAddr",
+                "type": "address"
+            }],
+            "name": "getUserState",
+            "outputs": [{
+                "name": "_state",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": false,
+            "inputs": [],
+            "name": "kill",
+            "outputs": [],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_addr",
+                "type": "address"
+            }, {
+                "name": "_departmentId",
+                "type": "string"
+            }],
+            "name": "checkWritePermission",
+            "outputs": [{
+                "name": "_ret",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_email",
+                "type": "string"
+            }],
+            "name": "findByEmail",
+            "outputs": [{
+                "name": "_strjson",
+                "type": "string"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": false,
+            "inputs": [{
+                "name": "_str",
+                "type": "string"
+            }, {
+                "name": "_str2",
+                "type": "string"
+            }],
+            "name": "log",
+            "outputs": [],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_roleId",
+                "type": "string"
+            }, {
+                "name": "_actionId",
+                "type": "string"
+            }],
+            "name": "checkRoleAction",
+            "outputs": [{
+                "name": "_ret",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_name",
+                "type": "string"
+            }],
+            "name": "findByLoginName",
+            "outputs": [{
+                "name": "_strjson",
+                "type": "string"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": false,
+            "inputs": [],
+            "name": "clearLog",
+            "outputs": [],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [],
+            "name": "getSender",
+            "outputs": [{
+                "name": "_ret",
+                "type": "string"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": false,
+            "inputs": [{
+                "name": "_userAddr",
+                "type": "address"
+            }],
+            "name": "eraseAdminByAddress",
+            "outputs": [],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_departmentId",
+                "type": "string"
+            }, {
+                "name": "_index",
+                "type": "uint256"
+            }],
+            "name": "getChildIdByIndex",
+            "outputs": [{
+                "name": "_childDepartmentId",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_departmentId",
+                "type": "string"
+            }, {
+                "name": "_actionId",
+                "type": "string"
+            }],
+            "name": "checkDepartmentAction",
+            "outputs": [{
+                "name": "_ret",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_departmentId",
+                "type": "string"
+            }],
+            "name": "departmentExists",
+            "outputs": [{
+                "name": "_exists",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [],
+            "name": "listAll",
+            "outputs": [{
+                "name": "_userListJson",
+                "type": "string"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_userAddr",
+                "type": "address"
+            }, {
+                "name": "_index",
+                "type": "uint256"
+            }],
+            "name": "getUserRoleId",
+            "outputs": [{
+                "name": "_ret",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_departmentId",
+                "type": "string"
+            }],
+            "name": "getUserCountByDepartmentId",
+            "outputs": [{
+                "name": "_count",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [],
+            "name": "getOwner",
+            "outputs": [{
+                "name": "_ret",
+                "type": "string"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_actionId",
+                "type": "string"
+            }],
+            "name": "checkActionExists",
+            "outputs": [{
+                "name": "_ret",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": false,
+            "inputs": [{
+                "name": "_userAddr",
+                "type": "address"
+            }],
+            "name": "deleteByAddress",
+            "outputs": [],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": false,
+            "inputs": [{
+                "name": "_userAddr",
+                "type": "address"
+            }, {
+                "name": "_roleId",
+                "type": "string"
+            }],
+            "name": "addUserRole",
+            "outputs": [{
+                "name": "_ret",
+                "type": "bool"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_departmentId",
+                "type": "string"
+            }, {
+                "name": "index",
+                "type": "uint256"
+            }],
+            "name": "getDepartmentRoleId",
+            "outputs": [{
+                "name": "_ret",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [],
+            "name": "getLog",
+            "outputs": [{
+                "name": "_ret",
+                "type": "string"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_userAddr",
+                "type": "address"
+            }],
+            "name": "findByAddress",
+            "outputs": [{
+                "name": "_ret",
+                "type": "string"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_account",
+                "type": "string"
+            }],
+            "name": "findByAccount",
+            "outputs": [{
+                "name": "_strjson",
+                "type": "string"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_roleId",
+                "type": "string"
+            }],
+            "name": "roleUsed",
+            "outputs": [{
+                "name": "_used",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_actionId",
+                "type": "string"
+            }],
+            "name": "actionExists",
+            "outputs": [{
+                "name": "_ret",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_userAddr",
+                "type": "address"
+            }],
+            "name": "getUserDepartmentId",
+            "outputs": [{
+                "name": "_departId",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_userAddr",
+                "type": "address"
+            }, {
+                "name": "_actionId",
+                "type": "string"
+            }],
+            "name": "checkUserAction",
+            "outputs": [{
+                "name": "_ret",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": false,
+            "inputs": [{
+                "name": "_userJson",
+                "type": "string"
+            }],
+            "name": "insert",
+            "outputs": [{
+                "name": "_ret",
+                "type": "bool"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [],
+            "name": "getUserCount",
+            "outputs": [{
+                "name": "_count",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": false,
+            "inputs": [{
+                "name": "_str",
+                "type": "string"
+            }, {
+                "name": "_ui",
+                "type": "uint256"
+            }],
+            "name": "log",
+            "outputs": [],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_departmentId",
+                "type": "string"
+            }, {
+                "name": "_roleId",
+                "type": "string"
+            }],
+            "name": "checkDepartmentRole",
+            "outputs": [{
+                "name": "_ret",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_actionId",
+                "type": "string"
+            }],
+            "name": "getUserCountByActionId",
+            "outputs": [{
+                "name": "_count",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_roleId",
+                "type": "string"
+            }],
+            "name": "roleExists",
+            "outputs": [{
+                "name": "_ret",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_departmentId",
+                "type": "string"
+            }],
+            "name": "findByDepartmentId",
+            "outputs": [{
+                "name": "_strjson",
+                "type": "string"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_userAddr",
+                "type": "address"
+            }, {
+                "name": "_contractAddr",
+                "type": "address"
+            }, {
+                "name": "_funcSha3",
+                "type": "string"
+            }],
+            "name": "checkUserPrivilege",
+            "outputs": [{
+                "name": "_ret",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_departmentId",
+                "type": "string"
+            }],
+            "name": "getAdmin",
+            "outputs": [{
+                "name": "_admin",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_actionId",
+                "type": "string"
+            }, {
+                "name": "_index",
+                "type": "uint256"
+            }],
+            "name": "getRoleIdByActionIdAndIndex",
+            "outputs": [{
+                "name": "_roleId",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{
+                "name": "_actionId",
+                "type": "string"
+            }, {
+                "name": "_resKey",
+                "type": "address"
+            }, {
+                "name": "_opSha3Key",
+                "type": "string"
+            }],
+            "name": "checkActionWithKey",
+            "outputs": [{
+                "name": "_ret",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "constant": false,
+            "inputs": [{
+                "name": "_userAddr",
+                "type": "address"
+            }, {
+                "name": "_status",
+                "type": "uint256"
+            }],
+            "name": "updateAccountStatus",
+            "outputs": [{
+                "name": "_ret",
+                "type": "bool"
+            }],
+            "payable": false,
+            "type": "function"
+        }, {
+            "inputs": [],
+            "payable": false,
+            "type": "constructor"
+        }, {
+            "anonymous": false,
+            "inputs": [{
+                "indexed": false,
+                "name": "_errno",
+                "type": "uint256"
+            }, {
+                "indexed": false,
+                "name": "_info",
+                "type": "string"
+            }],
+            "name": "Notify",
+            "type": "event"
+        }];
+
+        //
+        web3 = new Web3(new Web3.providers.HttpProvider(provideAddr));
+        console.log(web3);
+        // addRow("blockNumber", String(web3.eth.blockNumber));
+        var ticketPrice = web3.toWei(.05, 'ether');
+        var fromAccount = {
+            from: "0x0037e1bb8b9dd734e20cc0a9526cac36324eace0",
+            value: ticketPrice
+        };
+
+        //
+        // var MetaCoinFac = web3.eth.contract(MetaCoinABI);
+        // var metaCoinAdddress = "0xe8f0d632556cf411e2fe5e62b91ee3a9972413ba";
+        // var meteCoinInstance = MetaCoinFac.at(metaCoinAdddress);
+        // var getBalanceInEth = meteCoinInstance.getBalanceInEth.call();
+        // alert("getBalanceInEth:"+getBalanceInEth);
+
+
+        //userManager contract 
+
+
+
+
+        // var userManagerFac = web3.eth.contract(UserManagerABI);
+        // var usermanagerInstance = userManagerFac.at("0x0000000000000000000000000000000000000012");
+
+
+        // var allUsers = usermanagerInstance.listAll();
+        // addRow("allUser:", allUsers);
+
+
+
+        //registerManager contract
+
+        var REGContract = web3.eth.contract(registerABI);
+        // initiate contract for an address
+        var regAddress = "0x002864cf1843bbf78434ed84d1bed9763ddbeec2";
+        regAddress = "0x0000000000000000000000000000000000000011";
+        var registerContract1 = REGContract.at(regAddress);
+        var registerContract2 = web3.eth.contract(registerABI).at(regAddress);
+        // registerContract1.register("test1","1.1");
+        // registerContract1.register.call("test1","1.1",function(err, address) {
+        //     alert(err);
+        //     alert(address);
+        // });
+
+        var Uaddressssss = registerContract1.getContractAddress("UserManager", "0.0.1.0", fromAccount);
+        addRow("UserManager Address:", Uaddressssss);
+
+        registerContract1.getContractAddress.sendTransaction("UserManager", "0.0.1.0", fromAccount, function(error, address) {
+            addRow("UserManager Address sendTransaction:", address);
+        });
+
+
+        /*
+                txOptions = {
+                        //from: sendingAddr,        // address to send the transaction from
+                        gasPrice: 0, // gas price in ether of wei?
+                        gasLimit: 3000000, // the maximum amount of gas you want to spend on this transaction
+                        value: 0, // for much what (ether, wei ) you want to send on smart contract
+                        nonce: transaction_nonce, // dont understand what is it...
+                        data: contract.addPermission.getData('0x7aca20c508b1933545ffb6285f2be6c3652d2442', 2), // the function name and argumets to call smart contract
+                        to: '0x2c8fa48966c17ace92b3f13efc154ee347aa72ef'
+                    }
+                    // sendingAddr is needed to compute the contract address
+                var contractData = lightwallet.txutils.createContractTx(sendingAddr, txOptions)
+
+                var signedTx = lightwallet.signing.signTx(global_keystore,
+                    pwDerivedKey,
+                    contractData.tx,
+                    sendingAddr)
+                    */
+
+
+
+        //test1 0xdabc51f79196d4fc6542f9b28ad4543815e42978535b00fc9d96e6a46c42f9c2
+        //test2 0xa66365a700b3071ea41f380a7957b2bb503c9b4c3a6f83dc163162cc40ed87ba
+        //test1 0xdabc51f79196d4fc6542f9b28ad4543815e42978535b00fc9d96e6a46c42f9c2
+        //test2 0xa66365a700b3071ea41f380a7957b2bb503c9b4c3a6f83dc163162cc40ed87ba
+        //test3 0xc78eaa16f1f405a25c29f8e47ef8054afe21b3825d28a62dac5f738bd562d204
+        //test1 0xdabc51f79196d4fc6542f9b28ad4543815e42978535b00fc9d96e6a46c42f9c2
+        registerContract1.register.sendTransaction("test1", "1.1", fromAccount, function(err, address) {
+            // alert(err);
+            // alert(address);
+            addRow("register.sendTransaction", address);
+        });
+
+
+        var registrContractJson = registerContract1.getRegisteredContract.sendTransaction(1, 2, fromAccount, function(err, address) {
+            // alert(err);
+            // alert("registrContractJson:"+address);
+            addRow("getRegisteredContract.sendTransaction:", address)
+        });
+
+        var regNname = registerContract1.findResNameByAddress.getData("0x0000000000000000000000000000000000000011", fromAccount);
+        addRow("findResNameByAddress", regNname);
+
+
+        var t = registerContract1.getContractAddress("ActionManager", "0.0.1.0");
+        addRow("getData", t);
+
+        var tt = registerContract1.getContractAddress.sendTransaction("s", "sssd", "sd", fromAccount, function(err, value1, address, address1) {
+            // alert(err);
+            // alert(address);
+            // alert("ActionManager:"+value1);
+            addRow("getContractAddress.sendTransaction:", value1);
+        });
+
+
+
+
+        registerContract1.register.call("test1", "1.1", {
+            value: 200,
+            gas: 2000
+        });
+        // registerContract1.register("test1","1.1",{value: 200, gas: 2000});
+
+        //把外部账户当合约注册进去，
+        var ifR2 = registerContract1.IfContractRegist.call("0xf7fc24a6dee559ae3fe7585c0d31c5d592229599", fromAccount, function(err, value1, address, address1) {
+            // alert(err);
+            // alert(address);
+            // alert("ActionManager:"+value1);
+            addRow("IfContractRegist:", err);
+        });
+
+        // addRow("IfContractRegist", ifR2);
+        var getContractAddressR1 = registerContract1.getContractAddress("test1", "1.1");
+        var getContractAddressR2 = registerContract1.getContractAddress("test1sdfsdf", "1.11");
+
+        var nonce = web3.eth.getTransactionCount("0x001dc012144d9bf353b3a86a89cf7b75661852ec");
+        var nonceHex = web3.toHex(nonce);
+        addRow("nonce", nonce);
+        addRow("nonceHex", nonceHex);
+
+
+
+
+        //ActionManager contract
+
+        // var ActionManagerFac = web3.eth.contract(ActionManagerABI);
+        // var actionManagerInstance = ActionManagerFac.at("0x0000000000000000000000000000000000000015");
+
+
+        var allAction = actionManagerInstance.listAll.getData();
+        addRow("allAction:", allAction);
+
+        return;
+
+        json = '{"action":"{"id":"a1rrr239_1","name":"哈哈哈","level":"2","parentId":"action100019","url":"/xn/bjs/brokers/dataManager/dataManager.html","description":"","resKey":"数据交易管理","opKey":"1","type":"1", "version":"1.0"}"}';
+        // addRow("formatted", json);
+
+
+        actionManagerInstance.insert.sendTransaction(json, fromAccount, function(error, result) {
+            addRow("actionManagerInstance insert", result);
+
+
+            var receipt = web3.eth.getTransactionReceipt(result);
+            addRow("insert:receipt:", receipt);
+
+        });
+
+        var filter = web3.eth.filter({
+            fromBlock: 0,
+            toBlock: 'latest',
+            address: "0x0000000000000000000000000000000000000015",
+            'topics': [web3.sha3('Notify(uint,string)')]
+        });
+
+
+        filter.watch(function(error, result) {
+            addRow("way1_Watch" + error, result);
+        });
+
+        var event = actionManagerInstance.Notify({
+            _info: "0x0000000000000000000000000000000000000015"
+        });
+
+        // watch for changes
+        event.watch(function(error, result) {
+            addRow("way2_Watch" + error, result);
+        });
+
+
+        // web3.eth.filter({
+        //     fromBlock: 0,
+        //     toBlock: 'latest',
+        //     address: "0x0000000000000000000000000000000000000015",
+        // }).get(function(err, result) {
+        //     addRow("way3_Watch:" + err, result);
+        // })
+
+
+
+
+
+
+
+        //     //eth.getTransactionReceipt("0xc9bdd7137270e52b1b45d23586fc0bf630e54875385d38ae99a48c39860f14a7")
+        //     var receipt = web3.eth.getTransactionReceipt('0xc9bdd7137270e52b1b45d23586fc0bf630e54875385d38ae99a48c39860f14a7'); addRow("receipt blockHash:", receipt.blockHash); addRow("receipt blockNumber:", receipt.blockNumber); addRow("contract address from receip:", receipt.contractAddress);
+
+
+        //     var GET = {};
+        //     var query = window.location.search.substring(1).split("&");
+        //     for (var i = 0, max = query.length; i < max; i++) {
+        //         if (query[i] === "") // check for trailing & with no param
+        //             continue;
+        //         var param = query[i].split("=");
+        //         GET[decodeURIComponent(param[0])] = decodeURIComponent(param[1] || "");
+        //     }
+
+
+
+        // var account = GET.account;
+
+
+        web3.eth.defaultAccount = "0xa49dc91687b8c6e151773b3237d066fa8d84b27d";
+        var contractAddress = "0xa49dc91687b8c6e151773b3237d066fa8d84b27d";
+
+        var MyContract = web3.eth.contract(abi);
+        // initiate contract for an address
+        var contractIns1 = MyContract.at(contractAddress);
+
+        var contractIns2 = web3.eth.contract(abi).at(contractAddress);
+
+
+
+
+        var result0 = contractIns1.multiply.call(3, function(err, address) {
+            if (!err)
+                console.log(address); // "0x7f9fade1c0d57a7af66ab4ead7c2eb7b11a91385"
+        });
+
+        var result1 = contractIns1.multiply(5);
+        var castResult = String(result0);
+        // var castString = result0.toNumber();
+
+        //Submitted transaction                    fullhash=0x685f51e8916a161a56f17e7eac5c8bb5d176e015e8e390d3fd260baeb05e6b9c recipient=0xa49dc91687b8c6e151773b3237d066fa8d84b27d
+
+
+
+
+
+        //Submitted contract creation              fullhash=0xe3b165957791794f19b10f61bf5e21e335e2ffc1acfb19ff4a621682e7a5bac6 contract=0x9d703873c7bd573f2621c948a38585ca21cb2d68
+
+        var result2 = contractIns1.multiply.call(5);
+
+
+        // var result3 = test1.multiply(3);
+        //执行以上代码 Submitted transaction                    fullhash=0x264ee1538219fc2ea75fad1230b35741a09b7cf3a90fa45860284c31c8f44f8a recipient=0xa49dc91687b8c6e151773b3237d066fa8d84b27d
+
+        // var result2 = test1.call().multiply(5);
+
+
+
+        var result3 = contractIns1.multiply(3, function(err, address) {
+            if (!err)
+                console.log(address); // "0x7f9fade1c0d57a7af66ab4ead7c2eb7b11a91385"
+        });
+
+        // var result3WithCall = contractIns1.call().multiply(3);
+
+
+        var myNewcode = "0x60606040523415600b57fe5b5b60788061001a6000396000f300606060405263ffffffff60e060020a600035041663c6888fa181146020575bfe5b3415602757fe5b60306004356042565b60408051918252519081900360200190f35b600781025b9190505600a165627a7a723058202f439ba521644ada9f83e8f5b285e6a15c422d3410bc2e0c26590a540c801f690029"
+
+
+        var result4 = web3.eth.sendTransaction({
+            data: myNewcode
+        }, function(err, address) {
+            if (!err) {
+                addRow("address:", address)
+            } else {
+                addRow("address:", err)
+            }
+
+            // "0x7f9fade1c0d57a7af66ab4ead7c2eb7b11a91385"
+            console.log(address);
+        });
+
+        var result5 = web3.eth.sendTransaction(contractIns1, function(err, address) {
+            if (!err) {
+                addRow("address:", address);
+            } else {
+                addRow("address:", err);
+            }
+
+            // "0x7f9fade1c0d57a7af66ab4ead7c2eb7b11a91385"
+            console.log(address);
+        });
+
+        //执行以上代码 控制台打印结果Submitted contract creation              fullhash=0x1fc298f7d9f628894640b13352e4e8b5c41aec6e0a9c7e725090475def89ad73 contract=0xebdbb77d58f60d2e7ae42f1f8ad87213e4df653e
+
+
+
+
+
+
+
+
+    }
+
+
+    function keyExport() {
+
+    }
+
+
+    function printAccountBalance() {
+        var GET = {};
+        var query = window.location.search.substring(1).split("&");
+        for (var i = 0, max = query.length; i < max; i++) {
+            if (query[i] === "") // check for trailing & with no param
+                continue;
+            var param = query[i].split("=");
+            GET[decodeURIComponent(param[0])] = decodeURIComponent(param[1] || "");
+        }
+
+        web3.eth.getAccounts((error, result) => {
+            addRow("account address", result);
+
+        });
+
+        var account = GET.account;
+        if (account != null) {
+            var balanceWei = web3.eth.getBalance(account).toNumber();
+            var balance = web3.fromWei(balanceWei, 'ether');
+
+            document.write('[' + account + ']<br><br>')
+            document.write(balance + ' Ether');
+        }
+
+
+    }
+    </script>
+    <script type="text/javascript">
+    window.onload = function() {
+
+
+        try {
+            setTimeout(function() {
+                mutiplyCall();
+            }, 10);
+            // setTimeout(function() {
+            //     zhangjunsContract();
+            // }, 10);
+        } catch (e) {
+
+            alert(e);
+
+        }
+
+
+
+
+
+        function mutiplyCall() {
+            addRow("entery:","mutiplyCall");
+            var mutiplyABI = [{
+                "constant": true,
+                "inputs": [{
+                    "name": "by",
+                    "type": "uint256"
+                }, {
+                    "name": "_value",
+                    "type": "uint256"
+                }],
+                "name": "mutiplyByWithConstant",
+                "outputs": [{
+                    "name": "resutl",
+                    "type": "uint256"
+                }],
+                "payable": false,
+                "type": "function"
+            }, {
+                "constant": false,
+                "inputs": [{
+                    "name": "by",
+                    "type": "uint256"
+                }, {
+                    "name": "_value",
+                    "type": "uint256"
+                }],
+                "name": "mutiplyByWithEvent",
+                "outputs": [{
+                    "name": "_ret",
+                    "type": "bool"
+                }],
+                "payable": false,
+                "type": "function"
+            }, {
+                "constant": false,
+                "inputs": [{
+                    "name": "a",
+                    "type": "uint256"
+                }],
+                "name": "multiply7",
+                "outputs": [{
+                    "name": "d",
+                    "type": "uint256"
+                }],
+                "payable": false,
+                "type": "function"
+            }, {
+                "constant": false,
+                "inputs": [{
+                    "name": "by",
+                    "type": "uint256"
+                }, {
+                    "name": "_value",
+                    "type": "uint256"
+                }],
+                "name": "mutiplyByWithEventReturn99",
+                "outputs": [{
+                    "name": "_ret",
+                    "type": "bool"
+                }],
+                "payable": false,
+                "type": "function"
+            }, {
+                "constant": false,
+                "inputs": [{
+                    "name": "addr",
+                    "type": "address"
+                }],
+                "name": "getBalanceInEth",
+                "outputs": [{
+                    "name": "",
+                    "type": "uint256"
+                }],
+                "payable": false,
+                "type": "function"
+            }, {
+                "constant": false,
+                "inputs": [{
+                    "name": "by",
+                    "type": "uint256"
+                }, {
+                    "name": "_value",
+                    "type": "uint256"
+                }],
+                "name": "mutiplyBy",
+                "outputs": [{
+                    "name": "resutl",
+                    "type": "uint256"
+                }],
+                "payable": false,
+                "type": "function"
+            }, {
+                "constant": false,
+                "inputs": [{
+                    "name": "receiver",
+                    "type": "address"
+                }, {
+                    "name": "amount",
+                    "type": "uint256"
+                }],
+                "name": "sendCoin",
+                "outputs": [{
+                    "name": "sufficient",
+                    "type": "bool"
+                }],
+                "payable": false,
+                "type": "function"
+            }, {
+                "constant": false,
+                "inputs": [{
+                    "name": "obj",
+                    "type": "uint256"
+                }],
+                "name": "setStoreObj",
+                "outputs": [{
+                    "name": "result",
+                    "type": "bool"
+                }],
+                "payable": false,
+                "type": "function"
+            }, {
+                "constant": false,
+                "inputs": [{
+                    "name": "addr",
+                    "type": "address"
+                }],
+                "name": "getBalance",
+                "outputs": [{
+                    "name": "",
+                    "type": "uint256"
+                }],
+                "payable": false,
+                "type": "function"
+            }, {
+                "inputs": [],
+                "payable": false,
+                "type": "constructor"
+            }, {
+                "anonymous": false,
+                "inputs": [{
+                    "indexed": false,
+                    "name": "_errno",
+                    "type": "uint256"
+                }, {
+                    "indexed": false,
+                    "name": "_info",
+                    "type": "string"
+                }],
+                "name": "Notify",
+                "type": "event"
+            }, {
+                "anonymous": false,
+                "inputs": [{
+                    "indexed": true,
+                    "name": "_from",
+                    "type": "address"
+                }, {
+                    "indexed": true,
+                    "name": "_to",
+                    "type": "address"
+                }, {
+                    "indexed": false,
+                    "name": "_value",
+                    "type": "uint256"
+                }],
+                "name": "Transfer",
+                "type": "event"
+            }];
+
+
+
+            var keyObjectJSON = "{\"address\":\"0098c263c4498c9c544c88b1357e3b15ce3c3444\",\"crypto\":{\"cipher\":\"aes-128-ctr\",\"cipherparams\":{\"iv\":\"ff5e43a7f1551bb6512d7ce4215bf5ca\"},\"ciphertext\":\"ecb5fd145a0fa11d88f7a7c5d125d21b6fef1b25bb7070b6fe9fc75ee9b03dc3\",\"kdf\":\"scrypt\",\"kdfparams\":{\"dklen\":32,\"n\":262144,\"p\":1,\"r\":8,\"salt\":\"de26f201d9c51827940000595cd3c74d47d24de186d08038711f5bfa7545668b\"},\"mac\":\"61730b42daa66de49461dcce21d42a90c4f1688d919020d8ed022e4fb16a6a86\"},\"id\":\"05beb7d0-192a-231e-3b69-230fd3ec729e\",\"version\":3}";
+
+            // keyObjectJSON = "{\"address\":\"0098c263c4498c9c544c88b1357e3b15ce3c3444\",\"crypto\":{\"cipher\":\"aes-128-ctr\",\"cipherparams\":{\"iv\":\"83dbcc02d8ccb40e466191a123791e0e\"},\"ciphertext\":\"d172bf743a674da9cdad04534d56926ef8358534d458fffccd4e6ad2fbde479c\",\"kdf\":\"scrypt\",\"kdfparams\":{\"dklen\":32,\"n\":262144,\"r\":1,\"p\":8,\"salt\":\"ab0c7876052600dd703518d6fc3fe8984592145b591fc8fb5c6d43190334ba19\"},\"mac\":\"2103ac29920d71da29f15d75b4a16dbe95cfd7ff8faea1056c33131d846e3097\"},\"id\":\"3198bc9c-6672-5ab3-d995-4942343ae5b6\",\"version\":3}";
+
+            // keyObjectJSON = "{\"address\":\"4a9cf99357f5789251a8d7fad5b86d0f31eeb938\",\"Crypto\":{\"cipher\":\"aes-128-ctr\",\"ciphertext\":\"f93a875c23f5430bb86962da1ff2176d5b9179cfdd31e93027d67b0123e7a059\",\"cipherparams\":{\"iv\":\"5fb35020cc5e84447a4b8a3a39543dbe\"},\"kdf\":\"scrypt\",\"kdfparams\":{\"dklen\":32,\"n\":262144,\"p\":1,\"r\":8,\"salt\":\"0d6bf5361b8c70745b8d03bb096876b27f00de2627b503b3f7c5ce9e8e70abe6\"},\"mac\":\"8f80f79e55cc36c231a00a69c43d603bd0cf8eb70bb9d77532cd7ddb56e4707e\"},\"id\":\"372b47d8-aba7-41a5-b3cd-a848b4f5aab1\",\"version\":3}";
+
+            // keyObjectJSON = "{\"address\":\"f0e119f5f62ef3417236adbe1893074644309fd4\",\"crypto\":{\"cipher\":\"aes-128-ctr\",\"ciphertext\":\"0ea5fa00bbbe8b4b651d53527ea472e2a9c6f79f67412cc7d32de450bbf1f62a\",\"cipherparams\":{\"iv\":\"664ee1672a23f71e5774cfe5dc153c48\"},\"mac\":\"23afc21bb809de14e01679ed19911c4e290eddf0a969467a28dc6fea7e194339\",\"kdf\":\"scrypt\",\"kdfparams\":{\"dklen\":32,\"n\":256,\"r\":8,\"p\":1,\"salt\":\"c2c0a0b1b67aed288f1ab79ea7d67dc5c9aa79e4eb398b0cb6c4daac1b65ca4d\"}},\"id\":\"04f0b388-91bb-4590-a84d-37dde36a050e\",\"version\":3}";
+
+            // keyObjectJSON = "{\"address\":\"5bb20e91dfa986ebea8c485f10f321aba7908260\",\"crypto\":{\"cipher\":\"aes-128-ctr\",\"ciphertext\":\"cd495ddf0a649a6f821f905da07f62348bc6905c094300e8c9221ba06065cab0\",\"cipherparams\":{\"iv\":\"95aea25ee195e92a394d5223296f5ce4\"},\"mac\":\"0ce5d4a73f37f22666e7a925c2dbb2edf6e5bae1d4b63dabd6b2d681ea8a2a52\",\"kdf\":\"scrypt\",\"kdfparams\":{\"dklen\":32,\"n\":262144,\"r\":8,\"p\":1,\"salt\":\"dcd6fce0074f5f1fce03ae59dcf60f6249d39805bcadba432c3dd8552966b12b\"}},\"id\":\"357dc906-0403-4626-bb54-9b1870b1df26\",\"version\":3}";
+            
+            var keyObject = eval("(" + keyObjectJSON + ')');
+
+
+            web3 = new Web3(new Web3.providers.HttpProvider(provideAddr));
+            console.log(web3);
+            addRow("blockNumber", String(web3.eth.blockNumber));
+            var ticketPrice = web3.toWei(.05, 'ether');
+            var fromAccount = {
+                from: keyObject.address,
+                gas: "4712388",
+                gasPrice: "100000000000"
+            };
+
+
+            var multiplyAddress = "0xe6c925b676cfb621718d61b97ef7152778a002d2";
+            multiplyAddress = "0x63efe8c45694480660d3c543a0eadf5f021bdd61";
+            var multiplyInstance = web3.eth.contract(mutiplyABI).at(multiplyAddress);
+
+            // var result1 = multiplyInstance.mutiplyBy.call(6, 7);
+            // addRow("mutiplyBy:", result1);
+
+            // var result1 = multiplyInstance.mutiplyByWithEvent.call(6, 7);
+            // addRow("mutiplyByWithEvent:", result1);
+
+            // var result1 = multiplyInstance.mutiplyBy.sendTransaction(6, 7, fromAccount, function(error, result) {
+            //     addRow("multiplyInstance.mutiplyBy.sendTransaction:", result);
+            // });
+
+            // result1 = multiplyInstance.mutiplyByWithEvent.sendTransaction(6, 7, fromAccount);
+
+            // var result21 = multiplyInstance.mutiplyByWithEventReturn99.call(6,7);
+            // addRow("mutiplyByWithEventReturn99:", result1);
+
+            var filter = web3.eth.filter({
+                fromBlock: 0,
+                toBlock: 'latest',
+                address: multiplyAddress,
+                'topics': [web3.sha3('Notify(uint,string)')]
+            });
+
+
+            // filter.watch(function(error, result) {
+            //     addRow("mutiplyBy_watch1" + error, result);
+            // });
+
+            var event = multiplyInstance.Notify({
+                _info: multiplyAddress
+            });
+
+            // watch for changes
+            // event.watch(function(error, result) {
+            //     addRow("mutiplyBy_watch2" + error, result);
+            //     event.stopWatching(function() {
+            //         addRow("mutiplyBy_watch2" + error, result);
+            //     });
+            // });
+
+            var nonce = web3.eth.getTransactionCount(keyObject.address);
+            var nonceHex = web3.toHex(nonce);
+            addRow("nonce", nonce);
+            addRow("nonceHex", nonceHex);
+
+
+
+            // var txOptions = {
+            //     nonce: nonceHex,
+            //     gas: "4712388",
+            //     gasPrice: "100000000000",
+            //     to: multiplyAddress
+            // }
+
+            // var txutils = lightwallet.txutils;
+            // var mutiplyByTxData1 = txutils.functionTx(mutiplyABI, 'mutiplyBy', [6, 7], txOptions);
+            // addRow("mutiplyByTxData1", mutiplyByTxData1);
+
+            var mutiplyByTxData2 = multiplyInstance.mutiplyByWithEvent.getData(6, 7);
+            addRow("mutiplyByTxData2", mutiplyByTxData2);
+
+
+            var rawTx = {
+                gasPrice: 21000000000,
+                gasLimit: 9999999999,
+                value: 0,
+                nonce: nonce,
+                to: multiplyAddress,
+                data: mutiplyByTxData2
+            }
+
+
+            var Tx = EthJS.Tx;
+            var tx = new Tx(rawTx);
+
+
+            var keythereum = window.keythereum;
+
+
+
+
+            // var lazyKey = new Buffer("f8ebf968d3c91ec8ee4c6fee44de1d43464c4f0268bcc148c46056e87e649143", 'hex');
+            lazyKey = null;
+            if (lazyKey == null) {
+                logTime("begin_recover");
+                // keythereum.recover("1111", keyObject, function(privateKey) {
+                //     logTime("end_recover");
+                //     // alert("privateKey:"+privateKey);
+                //     lazyKey = privateKey;
+                // });
+
+                lazyKey = keythereum.recover("fac192ceb5fd772906bea3e118a69e8b", keyObject);
+                addRow("keythereum.recover:", lazyKey.toString("hex"))
+            }
+
+            generateKey = lazyKey;
+
+            //
+            var tmpEthJSObj = EthJS.Wallet.fromV3(keyObjectJSON, "fac192ceb5fd772906bea3e118a69e8b");
+            addRow("EthJS.Wallet.fromV3", tmpEthJSObj._privKey.toString("hex"));
+
+
+
+
+
+
+
+
+            // //usage of Wallet
+            // var shouldCancelDecrypt = false;
+
+            // function updateInterface(progress) {
+            //     console.log('The wallet is ' + parseInt(100 * progress) + '% decrypted');
+            //     addRow("progress:", progress);
+            //     // Optionally return true to stop this decryption; this callback will get
+            //     // called once more with callback(new Error("cancelled"))
+            //     return shouldCancelDecrypt;
+            // }
+
+            // Wallet.decrypt(keyObjectJSON, new Buffer("0x1111", 'hex'), updateInterface).then(function(wallet) {
+            //     // The wallet was successfully decrypted
+            //     addRow("wallet", wallet);
+            // }, function(error) {
+            //     if (error.message === 'invalid password') {
+            //         addRow("wallet", "cancelled");
+
+            //     } else if (error.message === 'cancelled') {
+            //         addRow("wallet", "cancelled");
+            //     }
+            // });
+
+
+            // alert("lazyKey"+lazyKey);
+
+            //addRow("keyRecovery:",web3.toHex(generateKey));
+            //addRow("before keyRecovery:", "ecb5fd145a0fa11d88f7a7c5d125d21b6fef1b25bb7070b6fe9fc75ee9b03dc3");
+
+            // alert("generateKey:"+generateKey);
+
+            console.log("tx:", tx);
+
+
+
+
+            // var privateKey = new Buffer('ecb5fd145a0fa11d88f7a7c5d125d21b6fef1b25bb7070b6fe9fc75ee9b03dc3', 'hex');
+            var privateKey = generateKey;
+
+            tx.sign(privateKey);
+
+            var serializedTx = tx.serialize();
+            var serializedTxHex = serializedTx.toString('hex');
+
+
+            //0xf889808609184e72a00082271094000000000000000000000000000000000000000080a47f74657374320000000000000000000000000000000000000000000000000000006000571ca08a8bbf888cfa37bbf0bb965423625641fc956967b81d12e23709cead01446075a01ce999b56a8a88504be365442ea61239198e23d1fce7d00fcfc5cd3b44b7215f
+
+            web3.eth.sendRawTransaction(serializedTxHex, function(err, hash) {
+                addRow("sendRawTransaction:", hash);
+            });
+            addRow("serializedTxHex:", serializedTxHex);
+
+
+            // var Newtx = new EthJS.Tx(rawTx);
+            // var rawArray = EthJS.Util.rlphash(tx.raw.slice(0, 6));
+            // var toBeHashed = '0x';
+            // for (var i = 0; i < rawArray.length; ++i) {
+            //     toBeHashed += ('00' + rawArray[i].toString(16)).slice(-2);
+            // }
+            // var signature = web3.eth.sign("0x0098c263c4498c9c544c88b1357e3b15ce3c3444", toBeHashed);
+            // Newtx.r = new EthJS.Buffer.Buffer(signature.slice(2, 66), 'hex');
+            // Newtx.s = new EthJS.Buffer.Buffer(signature.slice(66, 130), 'hex');
+            // Newtx.v = new EthJS.Buffer.Buffer(signature.slice(-2), 'hex');
+            // var NewserializedTx = tx.serialize();
+            // addRow("NewserializedTx:", NewserializedTx);
+
+
+
+
+        }
+
+        function zhangjunsContract() {
+            addRow("entery:","zhangjunsContract");
+            var ClientReceiptABI = [{
+                "constant": true,
+                "inputs": [],
+                "name": "getErrno",
+                "outputs": [{
+                    "name": "",
+                    "type": "uint256"
+                }],
+                "payable": false,
+                "type": "function"
+            }, {
+                "constant": false,
+                "inputs": [{
+                    "name": "_str",
+                    "type": "string"
+                }, {
+                    "name": "_addr",
+                    "type": "address"
+                }],
+                "name": "log",
+                "outputs": [],
+                "payable": false,
+                "type": "function"
+            }, {
+                "constant": false,
+                "inputs": [{
+                    "name": "_str",
+                    "type": "string"
+                }, {
+                    "name": "_i",
+                    "type": "int256"
+                }],
+                "name": "log",
+                "outputs": [],
+                "payable": false,
+                "type": "function"
+            }, {
+                "constant": false,
+                "inputs": [{
+                    "name": "_name",
+                    "type": "string"
+                }, {
+                    "name": "_version",
+                    "type": "string"
+                }],
+                "name": "register",
+                "outputs": [],
+                "payable": false,
+                "type": "function"
+            }, {
+                "constant": false,
+                "inputs": [{
+                    "name": "_str",
+                    "type": "string"
+                }],
+                "name": "log",
+                "outputs": [],
+                "payable": false,
+                "type": "function"
+            }, {
+                "constant": false,
+                "inputs": [],
+                "name": "kill",
+                "outputs": [],
+                "payable": false,
+                "type": "function"
+            }, {
+                "constant": false,
+                "inputs": [{
+                    "name": "_str",
+                    "type": "string"
+                }, {
+                    "name": "_str2",
+                    "type": "string"
+                }],
+                "name": "log",
+                "outputs": [],
+                "payable": false,
+                "type": "function"
+            }, {
+                "constant": false,
+                "inputs": [],
+                "name": "clearLog",
+                "outputs": [],
+                "payable": false,
+                "type": "function"
+            }, {
+                "constant": true,
+                "inputs": [],
+                "name": "getSender",
+                "outputs": [{
+                    "name": "_ret",
+                    "type": "string"
+                }],
+                "payable": false,
+                "type": "function"
+            }, {
+                "constant": true,
+                "inputs": [],
+                "name": "getOwner",
+                "outputs": [{
+                    "name": "_ret",
+                    "type": "string"
+                }],
+                "payable": false,
+                "type": "function"
+            }, {
+                "constant": true,
+                "inputs": [],
+                "name": "getLog",
+                "outputs": [{
+                    "name": "_ret",
+                    "type": "string"
+                }],
+                "payable": false,
+                "type": "function"
+            }, {
+                "constant": false,
+                "inputs": [{
+                    "name": "_str",
+                    "type": "string"
+                }],
+                "name": "deposit",
+                "outputs": [{
+                    "name": "_ret",
+                    "type": "bool"
+                }],
+                "payable": false,
+                "type": "function"
+            }, {
+                "constant": false,
+                "inputs": [{
+                    "name": "_str",
+                    "type": "string"
+                }, {
+                    "name": "_ui",
+                    "type": "uint256"
+                }],
+                "name": "log",
+                "outputs": [],
+                "payable": false,
+                "type": "function"
+            }, {
+                "constant": true,
+                "inputs": [{
+                    "name": "a",
+                    "type": "uint256"
+                }],
+                "name": "multiply",
+                "outputs": [{
+                    "name": "d",
+                    "type": "uint256"
+                }],
+                "payable": false,
+                "type": "function"
+            }, {
+                "inputs": [],
+                "payable": false,
+                "type": "constructor"
+            }, {
+                "anonymous": false,
+                "inputs": [{
+                    "indexed": false,
+                    "name": "value",
+                    "type": "string"
+                }],
+                "name": "Deposit",
+                "type": "event"
+            }];
+
+
+
+            var keyObjectJSON = "{\"address\":\"c27771e3c4b8fcb3671042f87f93b2ad2593a6be\",\"crypto\":{\"cipher\":\"aes-128-ctr\",\"ciphertext\":\"52c316bf860e2b51bd31feca27d28dc86502d8bb4cf3a2f39bf13519a1cba83d\",\"cipherparams\":{\"iv\":\"19bfa38b75d4c95f6d566bcd43ef4685\"},\"kdf\":\"scrypt\",\"kdfparams\":{\"dklen\":32,\"n\":262144,\"p\":1,\"r\":8,\"salt\":\"b27537d0610bd6dc34f15566303422ac043f85b49f5a73adf89142a331c5fb40\"},\"mac\":\"b98a623836d411206515bc7c2e3daa3d6122e58b4a6caaad9da1f8b411db1dd6\"},\"id\":\"9d91ba35-f252-4b31-9803-46d416524225\",\"version\":3}";
+
+            keyObjectJSON = "{\"address\":\"0098c263c4498c9c544c88b1357e3b15ce3c3444\",\"crypto\":{\"cipher\":\"aes-128-ctr\",\"cipherparams\":{\"iv\":\"ff5e43a7f1551bb6512d7ce4215bf5ca\"},\"ciphertext\":\"ecb5fd145a0fa11d88f7a7c5d125d21b6fef1b25bb7070b6fe9fc75ee9b03dc3\",\"kdf\":\"scrypt\",\"kdfparams\":{\"dklen\":32,\"n\":262144,\"p\":1,\"r\":8,\"salt\":\"de26f201d9c51827940000595cd3c74d47d24de186d08038711f5bfa7545668b\"},\"mac\":\"61730b42daa66de49461dcce21d42a90c4f1688d919020d8ed022e4fb16a6a86\"},\"id\":\"05beb7d0-192a-231e-3b69-230fd3ec729e\",\"version\":3}";
+
+            // keyObjectJSON = "{\"address\":\"0086dd8035e339a26e0436c495682114a722e703\",\"crypto\":{\"cipher\":\"aes-128-ctr\",\"cipherparams\":{\"iv\":\"1e277ff6cb045c85d7201e216710f408\"},\"ciphertext\":\"5a60833505bb926dfa13c2874d4a1bad6ef57e09642881ffd321e706fa339592\",\"kdf\":\"scrypt\",\"kdfparams\":{\"dklen\":32,\"n\":262144,\"p\":1,\"r\":8,\"salt\":\"8d53b2872d66f0e0fb288f4d2d187be515a08923268b3f625a8e20b995c51dbb\"},\"mac\":\"978e4217c200824a24f16b5accd52a06dbfbb2b092776fcaef8999fbbc23574f\"},\"id\":\"9fb7012d-6c1a-13a2-36b2-ae711bee8275\",\"version\":3}";
+
+            var keythereum = window.keythereum;
+
+            var keyObject = eval("(" + keyObjectJSON + ')');
+
+            var generateKey = keythereum.recover("1111", keyObject)
+
+
+            addRow("comparetozhang's_generateKey", generateKey.toString("hex"));
+
+
+            web3 = new Web3(new Web3.providers.HttpProvider(provideAddr));
+            console.log(web3);
+            addRow("blockNumber", String(web3.eth.blockNumber));
+            var ticketPrice = web3.toWei(.05, 'ether');
+            var externalAccout = "0x0098c263c4498c9c544c88b1357e3b15ce3c3444";
+            externalAccout = keyObject.address;
+            var fromAccount = {
+                from: externalAccout,
+                gas: "4712388",
+                gasPrice: "100000000000"
+            };
+
+
+            var clientReceiptAddress = "0x3c41770c8f366318eff0b77492a6303af3721852";
+            clientReceiptAddress
+            var clientReceiptInstance = web3.eth.contract(ClientReceiptABI).at(clientReceiptAddress);
+
+            var filter = web3.eth.filter({
+                fromBlock: 0,
+                toBlock: 'latest',
+                address: clientReceiptAddress,
+                'topics': [web3.sha3('Deposit(string)')]
+            });
+
+
+
+            var event = clientReceiptInstance.Deposit({
+                _info: clientReceiptAddress
+            });
+
+            // watch for changes
+            event.watch(function(error, result) {
+                addRow("clientReceiptInstance_watch" + error, result);
+            });
+
+            var nonce = web3.eth.getTransactionCount(externalAccout);
+            var nonceHex = web3.toHex(nonce);
+            addRow("nonce", nonce);
+            addRow("nonceHex", nonceHex);
+
+            var depositData = clientReceiptInstance.deposit.getData("this. is success test");
+            addRow("depositData:", depositData);
+
+            var rawTx = {
+                gasPrice: 21000000000,
+                gasLimit: 9999999999,
+                value: 0,
+                nonce: nonce,
+                to: clientReceiptAddress,
+                data: depositData
+            }
+
+
+            var Tx = EthJS.Tx;
+            var tx = new Tx(rawTx);
+
+
+            //addRow("keyRecovery:",web3.toHex(generateKey));
+            addRow("before keyRecovery:", "ecb5fd145a0fa11d88f7a7c5d125d21b6fef1b25bb7070b6fe9fc75ee9b03dc3");
+            addRow("after keyRecovery:", generateKey.toString("hex"));
+            // alert("generateKey:"+generateKey);
+
+            console.log("tx:", tx);
+
+            var Buffer = window.buffer.Buffer;
+
+
+            var privateKey = generateKey;
+
+            // var privateKey = new Buffer('8C7D188180D98F17AE6AA85B9DF2B6BD04B35DF6193209F1CDC58805B025BFAB', 'hex');
+
+
+            tx.sign(privateKey);
+
+            var serializedTx = tx.serialize();
+
+            var serializedTxHex = "0x" + serializedTx.toString('hex');
+
+            //0xf889808609184e72a00082271094000000000000000000000000000000000000000080a47f74657374320000000000000000000000000000000000000000000000000000006000571ca08a8bbf888cfa37bbf0bb965423625641fc956967b81d12e23709cead01446075a01ce999b56a8a88504be365442ea61239198e23d1fce7d00fcfc5cd3b44b7215f
+            addRow("clientReceipt_serializedTxHex", serializedTxHex);
+            web3.eth.sendRawTransaction(serializedTxHex, function(err, hash) {
+                addRow("sendRawTransaction_hash:", hash);
+            });
+
+
+
+
+        }
+
+    }
+
+
+    function logTime(obj) {
+        var theTime = getNowFormatDate();
+        addRow(theTime, obj);
+    }
+
+    function getNowFormatDate() {
+        var date = new Date();
+        var seperator1 = "-";
+        var seperator2 = ":";
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate + " " + date.getHours() + seperator2 + date.getMinutes() + seperator2 + date.getSeconds();
+        return currentdate;
+    }
+
+    function generateWallet() {
+
+        var keythereumObj = window.keythereum;
+        logTime("mkeythereumObje" + keythereumObj);
+
+
+        var params = {
+            keyBytes: 32,
+            ivBytes: 16
+        };
+
+        var dk = keythereumObj.create(params);
+
+        // var options = {
+        //     kdf: "pbkdf2",
+        //     cipher: "aes-128-ctr",
+        //     kdfparams: {
+        //         c: 262144,
+        //         dklen: 32,
+        //         prf: "hmac-sha256"
+        //     }
+        // };
+
+        var options = {
+            kdf: "scrypt",
+            cipher: "aes-128-ctr",
+            kdfparams: {
+                n: 1 << 18,
+                dklen: 32,
+                p: 1,
+                r: 8,
+                prf: "hmac-sha256"
+            }
+        };
+
+        logTime("dk" + dk);
+
+        keythereumObj.dump("1111", dk.privateKey, dk.salt, dk.iv, options, function(keyObject) {
+            var obj = JSON.stringify(keyObject);
+            logTime("keyObject" + obj);
+        });
+
+        // var keyObject = keythereumObj.dump("1111", dk.privateKey, dk.salt, dk.iv, options);
+        // logTime("keyObject" + keyObject);
+    }
+    </script>
+</head>
+
+<body>
+    <fieldset>
+        <legend>可编辑的表格</legend>
+        <table id="oTable" style="background-color:#eeeeee;" bordercolor="#aaaaaa" border="1" cellpadding="0" cellpadding="2" width="50%">
+            <thead>
+                <tr>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div contenteditable="true">key</div>
+                    </td>
+                    <td>
+                        <div contenteditable="true">value</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </fieldset>
+    <h2>Ethereum Account Explorer built on INFURA</h2>
+    <form method=GET action="index.html">
+        Enter an account:
+        <input type=text size=50 name=account>
+        <input type=submit>
+        <input type="button" value="generate wallet file" onclick="generateWallet()">
+    </form>
+    <br>
+    <p>Latest Block:
+        <script>
+        // document.write(web3.eth.blockNumber + "<br><br>");
+        </script>
+    </p>
+    <p>Account Balance:
+        <script>
+        //
+        </script>
+    </p>
+</body>
+
+</html>

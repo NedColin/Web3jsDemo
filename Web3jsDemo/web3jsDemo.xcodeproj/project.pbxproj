@@ -1,0 +1,672 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		810B39D51E8BA62F0016297A /* ethers-wallet.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 810B39D41E8BA62F0016297A /* ethers-wallet.min.js */; };
+		810B39D81E8BB38C0016297A /* Web3SecretStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 810B39D71E8BB38C0016297A /* Web3SecretStore.m */; };
+		81457FB21E6EB8D300CA5B30 /* web3jsDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 81457FB11E6EB8D300CA5B30 /* web3jsDemoTests.m */; };
+		81457FBD1E6EB8D300CA5B30 /* web3jsDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 81457FBC1E6EB8D300CA5B30 /* web3jsDemoUITests.m */; };
+		8145840D1E6ED4D700CA5B30 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 814583181E6ED4D700CA5B30 /* AppDelegate.m */; };
+		8145840E1E6ED4D700CA5B30 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 814583191E6ED4D700CA5B30 /* Assets.xcassets */; };
+		8145840F1E6ED4D700CA5B30 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8145831A1E6ED4D700CA5B30 /* LaunchScreen.storyboard */; };
+		814584101E6ED4D700CA5B30 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8145831C1E6ED4D700CA5B30 /* Main.storyboard */; };
+		814584111E6ED4D700CA5B30 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8145831E1E6ED4D700CA5B30 /* Info.plist */; };
+		814584121E6ED4D700CA5B30 /* main.html in Resources */ = {isa = PBXBuildFile; fileRef = 8145831F1E6ED4D700CA5B30 /* main.html */; };
+		814584131E6ED4D700CA5B30 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 814583201E6ED4D700CA5B30 /* main.m */; };
+		814584141E6ED4D700CA5B30 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 814583221E6ED4D700CA5B30 /* Info.plist */; };
+		814584151E6ED4D700CA5B30 /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 814583241E6ED4D700CA5B30 /* MASCompositeConstraint.m */; };
+		814584161E6ED4D700CA5B30 /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 814583271E6ED4D700CA5B30 /* MASConstraint.m */; };
+		814584171E6ED4D700CA5B30 /* MASConstraintMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 814583291E6ED4D700CA5B30 /* MASConstraintMaker.m */; };
+		814584181E6ED4D700CA5B30 /* MASLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 8145832B1E6ED4D700CA5B30 /* MASLayoutConstraint.m */; };
+		814584191E6ED4D700CA5B30 /* MASViewAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 8145832F1E6ED4D700CA5B30 /* MASViewAttribute.m */; };
+		8145841A1E6ED4D700CA5B30 /* MASViewConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 814583311E6ED4D700CA5B30 /* MASViewConstraint.m */; };
+		8145841B1E6ED4D700CA5B30 /* NSArray+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 814583331E6ED4D700CA5B30 /* NSArray+MASAdditions.m */; };
+		8145841C1E6ED4D700CA5B30 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 814583361E6ED4D700CA5B30 /* NSLayoutConstraint+MASDebugAdditions.m */; };
+		8145841D1E6ED4D700CA5B30 /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 814583381E6ED4D700CA5B30 /* View+MASAdditions.m */; };
+		8145841E1E6ED4D700CA5B30 /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8145833B1E6ED4D700CA5B30 /* ViewController+MASAdditions.m */; };
+		8145841F1E6ED4D700CA5B30 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8145833D1E6ED4D700CA5B30 /* ViewController.m */; };
+		8170332F1E8AB7CC00937B3D /* BufferOutput.js in Resources */ = {isa = PBXBuildFile; fileRef = 817033261E8AB7CC00937B3D /* BufferOutput.js */; };
+		817033301E8AB7CC00937B3D /* ethereumjs-all.js in Resources */ = {isa = PBXBuildFile; fileRef = 817033271E8AB7CC00937B3D /* ethereumjs-all.js */; };
+		817033311E8AB7CC00937B3D /* ethereumjs-tx.js in Resources */ = {isa = PBXBuildFile; fileRef = 817033281E8AB7CC00937B3D /* ethereumjs-tx.js */; };
+		817033321E8AB7CC00937B3D /* keythereum.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 817033291E8AB7CC00937B3D /* keythereum.min.js */; };
+		817033331E8AB7CC00937B3D /* lightwallet.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 8170332A1E8AB7CC00937B3D /* lightwallet.min.js */; };
+		817033341E8AB7CC00937B3D /* require.js in Resources */ = {isa = PBXBuildFile; fileRef = 8170332B1E8AB7CC00937B3D /* require.js */; };
+		817033361E8AB7CC00937B3D /* web3js0.16.0.js in Resources */ = {isa = PBXBuildFile; fileRef = 8170332D1E8AB7CC00937B3D /* web3js0.16.0.js */; };
+		817033371E8AB7CC00937B3D /* wzrdin.js in Resources */ = {isa = PBXBuildFile; fileRef = 8170332E1E8AB7CC00937B3D /* wzrdin.js */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		81457FAE1E6EB8D300CA5B30 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 81457F8C1E6EB8D300CA5B30 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 81457F931E6EB8D300CA5B30;
+			remoteInfo = web3jsDemo;
+		};
+		81457FB91E6EB8D300CA5B30 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 81457F8C1E6EB8D300CA5B30 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 81457F931E6EB8D300CA5B30;
+			remoteInfo = web3jsDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		810B39D41E8BA62F0016297A /* ethers-wallet.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "ethers-wallet.min.js"; sourceTree = "<group>"; };
+		810B39D61E8BB38C0016297A /* Web3SecretStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Web3SecretStore.h; sourceTree = "<group>"; };
+		810B39D71E8BB38C0016297A /* Web3SecretStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Web3SecretStore.m; sourceTree = "<group>"; };
+		81457F941E6EB8D300CA5B30 /* web3jsDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = web3jsDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		81457FAD1E6EB8D300CA5B30 /* web3jsDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = web3jsDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		81457FB11E6EB8D300CA5B30 /* web3jsDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = web3jsDemoTests.m; sourceTree = "<group>"; };
+		81457FB31E6EB8D300CA5B30 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		81457FB81E6EB8D300CA5B30 /* web3jsDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = web3jsDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		81457FBC1E6EB8D300CA5B30 /* web3jsDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = web3jsDemoUITests.m; sourceTree = "<group>"; };
+		81457FBE1E6EB8D300CA5B30 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		814583171E6ED4D700CA5B30 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		814583181E6ED4D700CA5B30 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		814583191E6ED4D700CA5B30 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8145831B1E6ED4D700CA5B30 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8145831D1E6ED4D700CA5B30 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8145831E1E6ED4D700CA5B30 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8145831F1E6ED4D700CA5B30 /* main.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = main.html; sourceTree = "<group>"; };
+		814583201E6ED4D700CA5B30 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		814583221E6ED4D700CA5B30 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		814583231E6ED4D700CA5B30 /* MASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASCompositeConstraint.h; sourceTree = "<group>"; };
+		814583241E6ED4D700CA5B30 /* MASCompositeConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASCompositeConstraint.m; sourceTree = "<group>"; };
+		814583251E6ED4D700CA5B30 /* MASConstraint+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MASConstraint+Private.h"; sourceTree = "<group>"; };
+		814583261E6ED4D700CA5B30 /* MASConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASConstraint.h; sourceTree = "<group>"; };
+		814583271E6ED4D700CA5B30 /* MASConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASConstraint.m; sourceTree = "<group>"; };
+		814583281E6ED4D700CA5B30 /* MASConstraintMaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASConstraintMaker.h; sourceTree = "<group>"; };
+		814583291E6ED4D700CA5B30 /* MASConstraintMaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASConstraintMaker.m; sourceTree = "<group>"; };
+		8145832A1E6ED4D700CA5B30 /* MASLayoutConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASLayoutConstraint.h; sourceTree = "<group>"; };
+		8145832B1E6ED4D700CA5B30 /* MASLayoutConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASLayoutConstraint.m; sourceTree = "<group>"; };
+		8145832C1E6ED4D700CA5B30 /* Masonry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Masonry.h; sourceTree = "<group>"; };
+		8145832D1E6ED4D700CA5B30 /* MASUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASUtilities.h; sourceTree = "<group>"; };
+		8145832E1E6ED4D700CA5B30 /* MASViewAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASViewAttribute.h; sourceTree = "<group>"; };
+		8145832F1E6ED4D700CA5B30 /* MASViewAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASViewAttribute.m; sourceTree = "<group>"; };
+		814583301E6ED4D700CA5B30 /* MASViewConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASViewConstraint.h; sourceTree = "<group>"; };
+		814583311E6ED4D700CA5B30 /* MASViewConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASViewConstraint.m; sourceTree = "<group>"; };
+		814583321E6ED4D700CA5B30 /* NSArray+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+MASAdditions.h"; sourceTree = "<group>"; };
+		814583331E6ED4D700CA5B30 /* NSArray+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+MASAdditions.m"; sourceTree = "<group>"; };
+		814583341E6ED4D700CA5B30 /* NSArray+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+MASShorthandAdditions.h"; sourceTree = "<group>"; };
+		814583351E6ED4D700CA5B30 /* NSLayoutConstraint+MASDebugAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+MASDebugAdditions.h"; sourceTree = "<group>"; };
+		814583361E6ED4D700CA5B30 /* NSLayoutConstraint+MASDebugAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+MASDebugAdditions.m"; sourceTree = "<group>"; };
+		814583371E6ED4D700CA5B30 /* View+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASAdditions.h"; sourceTree = "<group>"; };
+		814583381E6ED4D700CA5B30 /* View+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "View+MASAdditions.m"; sourceTree = "<group>"; };
+		814583391E6ED4D700CA5B30 /* View+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASShorthandAdditions.h"; sourceTree = "<group>"; };
+		8145833A1E6ED4D700CA5B30 /* ViewController+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+MASAdditions.h"; sourceTree = "<group>"; };
+		8145833B1E6ED4D700CA5B30 /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+MASAdditions.m"; sourceTree = "<group>"; };
+		8145833C1E6ED4D700CA5B30 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		8145833D1E6ED4D700CA5B30 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		817033261E8AB7CC00937B3D /* BufferOutput.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = BufferOutput.js; sourceTree = "<group>"; };
+		817033271E8AB7CC00937B3D /* ethereumjs-all.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "ethereumjs-all.js"; sourceTree = "<group>"; };
+		817033281E8AB7CC00937B3D /* ethereumjs-tx.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "ethereumjs-tx.js"; sourceTree = "<group>"; };
+		817033291E8AB7CC00937B3D /* keythereum.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = keythereum.min.js; sourceTree = "<group>"; };
+		8170332A1E8AB7CC00937B3D /* lightwallet.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = lightwallet.min.js; sourceTree = "<group>"; };
+		8170332B1E8AB7CC00937B3D /* require.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = require.js; sourceTree = "<group>"; };
+		8170332D1E8AB7CC00937B3D /* web3js0.16.0.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = web3js0.16.0.js; sourceTree = "<group>"; };
+		8170332E1E8AB7CC00937B3D /* wzrdin.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = wzrdin.js; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		81457F911E6EB8D300CA5B30 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		81457FAA1E6EB8D300CA5B30 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		81457FB51E6EB8D300CA5B30 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		81457F8B1E6EB8D300CA5B30 = {
+			isa = PBXGroup;
+			children = (
+				814583161E6ED4D700CA5B30 /* web3jsDemo */,
+				81457FB01E6EB8D300CA5B30 /* web3jsDemoTests */,
+				81457FBB1E6EB8D300CA5B30 /* web3jsDemoUITests */,
+				81457F951E6EB8D300CA5B30 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		81457F951E6EB8D300CA5B30 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				81457F941E6EB8D300CA5B30 /* web3jsDemo.app */,
+				81457FAD1E6EB8D300CA5B30 /* web3jsDemoTests.xctest */,
+				81457FB81E6EB8D300CA5B30 /* web3jsDemoUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		81457FB01E6EB8D300CA5B30 /* web3jsDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				81457FB11E6EB8D300CA5B30 /* web3jsDemoTests.m */,
+				81457FB31E6EB8D300CA5B30 /* Info.plist */,
+			);
+			path = web3jsDemoTests;
+			sourceTree = "<group>";
+		};
+		81457FBB1E6EB8D300CA5B30 /* web3jsDemoUITests */ = {
+			isa = PBXGroup;
+			children = (
+				81457FBC1E6EB8D300CA5B30 /* web3jsDemoUITests.m */,
+				81457FBE1E6EB8D300CA5B30 /* Info.plist */,
+			);
+			path = web3jsDemoUITests;
+			sourceTree = "<group>";
+		};
+		814583161E6ED4D700CA5B30 /* web3jsDemo */ = {
+			isa = PBXGroup;
+			children = (
+				817033251E8AB7CC00937B3D /* js */,
+				814583171E6ED4D700CA5B30 /* AppDelegate.h */,
+				814583181E6ED4D700CA5B30 /* AppDelegate.m */,
+				814583191E6ED4D700CA5B30 /* Assets.xcassets */,
+				8145831A1E6ED4D700CA5B30 /* LaunchScreen.storyboard */,
+				8145831C1E6ED4D700CA5B30 /* Main.storyboard */,
+				8145831E1E6ED4D700CA5B30 /* Info.plist */,
+				8145831F1E6ED4D700CA5B30 /* main.html */,
+				814583201E6ED4D700CA5B30 /* main.m */,
+				814583211E6ED4D700CA5B30 /* Masonry */,
+				8145833C1E6ED4D700CA5B30 /* ViewController.h */,
+				8145833D1E6ED4D700CA5B30 /* ViewController.m */,
+				810B39D61E8BB38C0016297A /* Web3SecretStore.h */,
+				810B39D71E8BB38C0016297A /* Web3SecretStore.m */,
+			);
+			path = web3jsDemo;
+			sourceTree = "<group>";
+		};
+		814583211E6ED4D700CA5B30 /* Masonry */ = {
+			isa = PBXGroup;
+			children = (
+				814583221E6ED4D700CA5B30 /* Info.plist */,
+				814583231E6ED4D700CA5B30 /* MASCompositeConstraint.h */,
+				814583241E6ED4D700CA5B30 /* MASCompositeConstraint.m */,
+				814583251E6ED4D700CA5B30 /* MASConstraint+Private.h */,
+				814583261E6ED4D700CA5B30 /* MASConstraint.h */,
+				814583271E6ED4D700CA5B30 /* MASConstraint.m */,
+				814583281E6ED4D700CA5B30 /* MASConstraintMaker.h */,
+				814583291E6ED4D700CA5B30 /* MASConstraintMaker.m */,
+				8145832A1E6ED4D700CA5B30 /* MASLayoutConstraint.h */,
+				8145832B1E6ED4D700CA5B30 /* MASLayoutConstraint.m */,
+				8145832C1E6ED4D700CA5B30 /* Masonry.h */,
+				8145832D1E6ED4D700CA5B30 /* MASUtilities.h */,
+				8145832E1E6ED4D700CA5B30 /* MASViewAttribute.h */,
+				8145832F1E6ED4D700CA5B30 /* MASViewAttribute.m */,
+				814583301E6ED4D700CA5B30 /* MASViewConstraint.h */,
+				814583311E6ED4D700CA5B30 /* MASViewConstraint.m */,
+				814583321E6ED4D700CA5B30 /* NSArray+MASAdditions.h */,
+				814583331E6ED4D700CA5B30 /* NSArray+MASAdditions.m */,
+				814583341E6ED4D700CA5B30 /* NSArray+MASShorthandAdditions.h */,
+				814583351E6ED4D700CA5B30 /* NSLayoutConstraint+MASDebugAdditions.h */,
+				814583361E6ED4D700CA5B30 /* NSLayoutConstraint+MASDebugAdditions.m */,
+				814583371E6ED4D700CA5B30 /* View+MASAdditions.h */,
+				814583381E6ED4D700CA5B30 /* View+MASAdditions.m */,
+				814583391E6ED4D700CA5B30 /* View+MASShorthandAdditions.h */,
+				8145833A1E6ED4D700CA5B30 /* ViewController+MASAdditions.h */,
+				8145833B1E6ED4D700CA5B30 /* ViewController+MASAdditions.m */,
+			);
+			path = Masonry;
+			sourceTree = "<group>";
+		};
+		817033251E8AB7CC00937B3D /* js */ = {
+			isa = PBXGroup;
+			children = (
+				810B39D41E8BA62F0016297A /* ethers-wallet.min.js */,
+				817033261E8AB7CC00937B3D /* BufferOutput.js */,
+				817033271E8AB7CC00937B3D /* ethereumjs-all.js */,
+				817033281E8AB7CC00937B3D /* ethereumjs-tx.js */,
+				817033291E8AB7CC00937B3D /* keythereum.min.js */,
+				8170332A1E8AB7CC00937B3D /* lightwallet.min.js */,
+				8170332B1E8AB7CC00937B3D /* require.js */,
+				8170332D1E8AB7CC00937B3D /* web3js0.16.0.js */,
+				8170332E1E8AB7CC00937B3D /* wzrdin.js */,
+			);
+			path = js;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		81457F931E6EB8D300CA5B30 /* web3jsDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 81457FC11E6EB8D300CA5B30 /* Build configuration list for PBXNativeTarget "web3jsDemo" */;
+			buildPhases = (
+				81457F901E6EB8D300CA5B30 /* Sources */,
+				81457F911E6EB8D300CA5B30 /* Frameworks */,
+				81457F921E6EB8D300CA5B30 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = web3jsDemo;
+			productName = web3jsDemo;
+			productReference = 81457F941E6EB8D300CA5B30 /* web3jsDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		81457FAC1E6EB8D300CA5B30 /* web3jsDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 81457FC41E6EB8D300CA5B30 /* Build configuration list for PBXNativeTarget "web3jsDemoTests" */;
+			buildPhases = (
+				81457FA91E6EB8D300CA5B30 /* Sources */,
+				81457FAA1E6EB8D300CA5B30 /* Frameworks */,
+				81457FAB1E6EB8D300CA5B30 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				81457FAF1E6EB8D300CA5B30 /* PBXTargetDependency */,
+			);
+			name = web3jsDemoTests;
+			productName = web3jsDemoTests;
+			productReference = 81457FAD1E6EB8D300CA5B30 /* web3jsDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		81457FB71E6EB8D300CA5B30 /* web3jsDemoUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 81457FC71E6EB8D300CA5B30 /* Build configuration list for PBXNativeTarget "web3jsDemoUITests" */;
+			buildPhases = (
+				81457FB41E6EB8D300CA5B30 /* Sources */,
+				81457FB51E6EB8D300CA5B30 /* Frameworks */,
+				81457FB61E6EB8D300CA5B30 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				81457FBA1E6EB8D300CA5B30 /* PBXTargetDependency */,
+			);
+			name = web3jsDemoUITests;
+			productName = web3jsDemoUITests;
+			productReference = 81457FB81E6EB8D300CA5B30 /* web3jsDemoUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		81457F8C1E6EB8D300CA5B30 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = Ned;
+				TargetAttributes = {
+					81457F931E6EB8D300CA5B30 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = V878V984QG;
+						ProvisioningStyle = Manual;
+					};
+					81457FAC1E6EB8D300CA5B30 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 81457F931E6EB8D300CA5B30;
+					};
+					81457FB71E6EB8D300CA5B30 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 81457F931E6EB8D300CA5B30;
+					};
+				};
+			};
+			buildConfigurationList = 81457F8F1E6EB8D300CA5B30 /* Build configuration list for PBXProject "web3jsDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 81457F8B1E6EB8D300CA5B30;
+			productRefGroup = 81457F951E6EB8D300CA5B30 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				81457F931E6EB8D300CA5B30 /* web3jsDemo */,
+				81457FAC1E6EB8D300CA5B30 /* web3jsDemoTests */,
+				81457FB71E6EB8D300CA5B30 /* web3jsDemoUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		81457F921E6EB8D300CA5B30 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				814584111E6ED4D700CA5B30 /* Info.plist in Resources */,
+				817033341E8AB7CC00937B3D /* require.js in Resources */,
+				817033371E8AB7CC00937B3D /* wzrdin.js in Resources */,
+				814584121E6ED4D700CA5B30 /* main.html in Resources */,
+				817033361E8AB7CC00937B3D /* web3js0.16.0.js in Resources */,
+				817033311E8AB7CC00937B3D /* ethereumjs-tx.js in Resources */,
+				817033321E8AB7CC00937B3D /* keythereum.min.js in Resources */,
+				814584141E6ED4D700CA5B30 /* Info.plist in Resources */,
+				814584101E6ED4D700CA5B30 /* Main.storyboard in Resources */,
+				810B39D51E8BA62F0016297A /* ethers-wallet.min.js in Resources */,
+				817033301E8AB7CC00937B3D /* ethereumjs-all.js in Resources */,
+				817033331E8AB7CC00937B3D /* lightwallet.min.js in Resources */,
+				8170332F1E8AB7CC00937B3D /* BufferOutput.js in Resources */,
+				8145840E1E6ED4D700CA5B30 /* Assets.xcassets in Resources */,
+				8145840F1E6ED4D700CA5B30 /* LaunchScreen.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		81457FAB1E6EB8D300CA5B30 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		81457FB61E6EB8D300CA5B30 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		81457F901E6EB8D300CA5B30 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				814584161E6ED4D700CA5B30 /* MASConstraint.m in Sources */,
+				814584191E6ED4D700CA5B30 /* MASViewAttribute.m in Sources */,
+				8145841E1E6ED4D700CA5B30 /* ViewController+MASAdditions.m in Sources */,
+				814584171E6ED4D700CA5B30 /* MASConstraintMaker.m in Sources */,
+				8145841C1E6ED4D700CA5B30 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
+				814584131E6ED4D700CA5B30 /* main.m in Sources */,
+				8145841F1E6ED4D700CA5B30 /* ViewController.m in Sources */,
+				814584151E6ED4D700CA5B30 /* MASCompositeConstraint.m in Sources */,
+				810B39D81E8BB38C0016297A /* Web3SecretStore.m in Sources */,
+				8145841D1E6ED4D700CA5B30 /* View+MASAdditions.m in Sources */,
+				8145841B1E6ED4D700CA5B30 /* NSArray+MASAdditions.m in Sources */,
+				814584181E6ED4D700CA5B30 /* MASLayoutConstraint.m in Sources */,
+				8145840D1E6ED4D700CA5B30 /* AppDelegate.m in Sources */,
+				8145841A1E6ED4D700CA5B30 /* MASViewConstraint.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		81457FA91E6EB8D300CA5B30 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				81457FB21E6EB8D300CA5B30 /* web3jsDemoTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		81457FB41E6EB8D300CA5B30 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				81457FBD1E6EB8D300CA5B30 /* web3jsDemoUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		81457FAF1E6EB8D300CA5B30 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 81457F931E6EB8D300CA5B30 /* web3jsDemo */;
+			targetProxy = 81457FAE1E6EB8D300CA5B30 /* PBXContainerItemProxy */;
+		};
+		81457FBA1E6EB8D300CA5B30 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 81457F931E6EB8D300CA5B30 /* web3jsDemo */;
+			targetProxy = 81457FB91E6EB8D300CA5B30 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		8145831A1E6ED4D700CA5B30 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8145831B1E6ED4D700CA5B30 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		8145831C1E6ED4D700CA5B30 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8145831D1E6ED4D700CA5B30 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		81457FBF1E6EB8D300CA5B30 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		81457FC01E6EB8D300CA5B30 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		81457FC21E6EB8D300CA5B30 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = V878V984QG;
+				INFOPLIST_FILE = web3jsDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ju.web3jsDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "f8042451-50cd-4df1-b567-33a119288678";
+				PROVISIONING_PROFILE_SPECIFIER = web3jsDemo;
+			};
+			name = Debug;
+		};
+		81457FC31E6EB8D300CA5B30 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = V878V984QG;
+				INFOPLIST_FILE = web3jsDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ju.web3jsDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "f8042451-50cd-4df1-b567-33a119288678";
+				PROVISIONING_PROFILE_SPECIFIER = web3jsDemo;
+			};
+			name = Release;
+		};
+		81457FC51E6EB8D300CA5B30 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = web3jsDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Ned.web3jsDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/web3jsDemo.app/web3jsDemo";
+			};
+			name = Debug;
+		};
+		81457FC61E6EB8D300CA5B30 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = web3jsDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Ned.web3jsDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/web3jsDemo.app/web3jsDemo";
+			};
+			name = Release;
+		};
+		81457FC81E6EB8D300CA5B30 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = web3jsDemoUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Ned.web3jsDemoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = web3jsDemo;
+			};
+			name = Debug;
+		};
+		81457FC91E6EB8D300CA5B30 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = web3jsDemoUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Ned.web3jsDemoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = web3jsDemo;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		81457F8F1E6EB8D300CA5B30 /* Build configuration list for PBXProject "web3jsDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				81457FBF1E6EB8D300CA5B30 /* Debug */,
+				81457FC01E6EB8D300CA5B30 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		81457FC11E6EB8D300CA5B30 /* Build configuration list for PBXNativeTarget "web3jsDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				81457FC21E6EB8D300CA5B30 /* Debug */,
+				81457FC31E6EB8D300CA5B30 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		81457FC41E6EB8D300CA5B30 /* Build configuration list for PBXNativeTarget "web3jsDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				81457FC51E6EB8D300CA5B30 /* Debug */,
+				81457FC61E6EB8D300CA5B30 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		81457FC71E6EB8D300CA5B30 /* Build configuration list for PBXNativeTarget "web3jsDemoUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				81457FC81E6EB8D300CA5B30 /* Debug */,
+				81457FC91E6EB8D300CA5B30 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 81457F8C1E6EB8D300CA5B30 /* Project object */;
+}
